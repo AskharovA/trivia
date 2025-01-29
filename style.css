@@ -38,14 +38,18 @@
 }
 
 .image {
-    border-radius: 0 0 0 20px;
+    /* border-radius: 0 0 0 20px; */
+    margin-top: 10px;
     overflow: hidden;
-    width: 200px;
-    height: 250px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    width: 400px;
+    height: 400px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.25); */
     position: absolute;
     right: 0;
     top: 0;
+    filter: sepia();
+    opacity: .8;
+    z-index: -1;
 }
 
 .image>img {
@@ -53,8 +57,8 @@
 }
 
 .question-cont {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     border-radius: 20px;
     display: flex;
     justify-content: center;
@@ -63,7 +67,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     font-size: 1.4rem;
-    font-weight: bold;
+    /* font-weight: bold; */
     animation-name: questionAnimation;
     animation-duration: .75s;
     cursor: pointer;
@@ -76,7 +80,7 @@
 }
 
 #main {
-    height: 80vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -115,6 +119,7 @@
 
 .category-name {
     text-align: center;
+    font-size: 2rem;
 }
 
 #books {
@@ -216,5 +221,49 @@
     to {
         opacity: 1;
         scale: 100%;
+    }
+}
+
+@media (max-width: 1500px) {
+    #main {
+        height: 85vh;
+    }
+    .question-cont {
+        width: 180px;
+        height: 180px;
+        font-size: 1.1rem;
+    }
+
+    .image {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .question-block {
+        font-size: 3rem;
+    }
+    .question-cont {
+        width: 140px;
+        height: 140px;
+        font-size: 1rem;
+    }
+
+    #nav-list {
+        margin-left: 5px;
+        gap: 5px;
+    }
+    
+    #nav-list li {
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding: 10px 15px;
+        border-radius: 0 0 5px 5px;
+    }
+
+    .image {
+        width: 160px;
+        height: 200px;
     }
 }

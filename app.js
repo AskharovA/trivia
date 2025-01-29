@@ -27,11 +27,14 @@ async function loadData() {
 
 const mainCont = document.getElementById("main");
 
-function createQuestionElem(id, name) {
+function createQuestionElem(id, name, price) {
     let elem = document.createElement("div");
     elem.classList.add("question-cont");
     elem.id = id;
     elem.innerText = name;
+    if (price > 5) {
+        elem.innerText = name + "\n" + price;
+    }
     categoryCont.appendChild(elem);
 }
 
@@ -47,7 +50,7 @@ function getCategory(id) {
             categoryName.innerHTML = elem.name;
             elem.data.forEach(question => {
                 if (!playedQuestionsData.includes(question.id)) {
-                    createQuestionElem(question.id, question.name);
+                    createQuestionElem(question.id, question.name, question.price);
                 }
             })
         }
@@ -70,7 +73,7 @@ function getQuestion(questionID) {
                     if (question.id == questionID) {
                         console.log(question);
                         questionBlock.id = questionID;
-                        questionText.innerHTML = question.question;
+                        questionText.innerText = question.question;
                         return
                     }
                 })
