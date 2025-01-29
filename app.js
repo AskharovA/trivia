@@ -10,6 +10,11 @@ let questionText = document.querySelector(".question-text-block");
 let categories = document.querySelectorAll(".nav-list-item");
 
 
+if (!localStorage.getItem("triviaData")) {
+    localStorage.setItem("triviaData", JSON.stringify([]));
+}
+
+
 async function loadData() {
     try {
         const response = await fetch('db.json');
@@ -22,11 +27,11 @@ async function loadData() {
 
 const mainCont = document.getElementById("main");
 
-function createQuestionElem(id) {
+function createQuestionElem(id, name) {
     let elem = document.createElement("div");
     elem.classList.add("question-cont");
     elem.id = id;
-    elem.innerText = id;
+    elem.innerText = name;
     categoryCont.appendChild(elem);
 }
 
@@ -34,13 +39,15 @@ function getCategory(id) {
     categoryCont = document.createElement("div");
     categoryCont.classList.add("category-cont");
     mainCont.appendChild(categoryCont);
+    let playedQuestionsData = getDataFromLocalStorage();
+    console.log(playedQuestionsData);
 
     dbData.forEach(elem => {
         if (elem.id == id) {
             categoryName.innerHTML = elem.name;
             elem.data.forEach(question => {
-                if (!playedQuestions.includes(question.id)) {
-                    createQuestionElem(question.id);
+                if (!playedQuestionsData.includes(question.id)) {
+                    createQuestionElem(question.id, question.name);
                 }
             })
         }
@@ -74,6 +81,7 @@ function getQuestion(questionID) {
 
 function getAnswer(questionID) {
     playedQuestions.push(Number(questionID));
+    setDataToLocalStorage();
 
     setTimeout(
         () => {
@@ -99,6 +107,19 @@ function getActiveCategory() {
             return
         }
     })
+}
+
+function getDataFromLocalStorage() {
+    data = localStorage.getItem("triviaData");
+    return JSON.parse(data)
+}
+
+function setDataToLocalStorage() {
+    localStorage.setItem("triviaData", JSON.stringify(playedQuestions));
+}
+
+function clearLocalStorage() {
+    localStorage.removeItem("triviaData");
 }
 
 document.addEventListener("click", (e) => {
@@ -127,5 +148,13 @@ document.addEventListener("click", (e) => {
         qButtons.style.display = "none";
         mainCont.innerHTML = "";
         getActiveCategory();
+    }
+    if (e.target.classList.contains("new-game-button")) {
+        clearLocalStorage();
+        localStorage.setItem("triviaData", JSON.stringify([]))
+        document.querySelector(".start-window").remove();
+    }
+    if (e.target.classList.contains("continue-game-button")) {
+        document.querySelector(".start-window").remove();
     }
 })

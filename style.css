@@ -66,6 +66,13 @@
     font-weight: bold;
     animation-name: questionAnimation;
     animation-duration: .75s;
+    cursor: pointer;
+    transition: all ease .4s;
+    text-align: center;
+}
+
+.question-cont:hover {
+    scale: 105%;
 }
 
 #main {
@@ -160,6 +167,36 @@
 
 .question-text-block {
     transition: .5 all ease;
+}
+
+.start-window {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: wheat;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 2px 3px 20px black, 0 0 60px #8a4d0f inset;
+    filter: url(#wavy2);
+}
+
+.start-window>button {
+    outline: none;
+    border: none;
+    padding: 20px;
+    font-size: 1.5rem;
+    background-color: brown;
+    color: wheat;
+    border-radius: 10px;
+    box-shadow: 2px 3px 5px black, 0 0 10px #8a4d0f inset;
+    cursor: pointer;
+}
+
+.start-window>button:hover {
+    background-color: rgb(185, 60, 60);
 }
 
 @keyframes baseAnimation {
