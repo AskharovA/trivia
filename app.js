@@ -9,6 +9,11 @@ let categoryName = document.querySelector(".category-name");
 let questionText = document.querySelector(".question-text-block");
 let categories = document.querySelectorAll(".nav-list-item");
 
+let choiceSound = document.getElementById("choice-sound");
+let answerSound = document.getElementById("answer-sound");
+choiceSound.volume = 0.5
+answerSound.volume = 0.25
+
 
 if (!localStorage.getItem("triviaData")) {
     localStorage.setItem("triviaData", JSON.stringify([]));
@@ -129,6 +134,7 @@ document.addEventListener("click", (e) => {
     e.preventDefault();
     if (e.target.classList.contains("question-cont")) {
         questionText.style.color = "white";
+        choiceSound.play();
         getQuestion(e.target.id);
     }
     if (e.target.classList.contains("nav-list-item")) {
@@ -141,6 +147,7 @@ document.addEventListener("click", (e) => {
     }
     if (e.target.classList.contains("get-answer-button")) {
         questionText.innerText = "";
+        answerSound.play();
         getAnswer(e.target.id);
     }
     if (e.target.classList.contains("home-btn")) {
